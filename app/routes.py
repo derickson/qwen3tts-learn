@@ -1,14 +1,33 @@
 import asyncio
 import base64
 import io
+import logging
 
+import anthropic
 from fastapi import APIRouter, Request, WebSocket, WebSocketDisconnect
 from fastapi.responses import JSONResponse, StreamingResponse
 from pydantic import BaseModel, Field
 
 from . import config
 
+logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api")
+_claude_client = anthropic.Anthropic()
+
+
+async def translate_text(text: str, target_language: str) -> str:
+    """Translate text to the target language using Claude."""
+    logger.info("Translating text to %s via Claude API", target_language)
+    response = await asyncio.to_thread(
+        _claude_client.messages.create,
+        model="claude-sonnet-4-20250514",
+        max_tokens=1024,
+        messages=[{
+            "role": "user",
+            "content": f"Translate the following text to {target_language}. Return ONLY the translation, nothing else:\n\n{text}",
+        }],
+    )
+    return response.content[0].text
 
 
 class GenerateRequest(BaseModel):
@@ -34,7 +53,10 @@ async def generate(req: GenerateRequest, request: Request):
         )
     mm = request.app.state.model_manager
     await mm.ensure_loaded()
-    wav_bytes, sr = await mm.generate(req.text, req.language, req.voice)
+    text = req.text
+    if req.language != "English":
+        text = await translate_text(text, req.language)
+    wav_bytes, sr = await mm.generate(text, req.language, req.voice)
     return StreamingResponse(
         io.BytesIO(wav_bytes),
         media_type="audio/wav",
@@ -52,7 +74,10 @@ async def generate_json(req: GenerateRequest, request: Request):
         )
     mm = request.app.state.model_manager
     await mm.ensure_loaded()
-    wav_bytes, sr = await mm.generate(req.text, req.language, req.voice)
+    text = req.text
+    if req.language != "English":
+        text = await translate_text(text, req.language)
+    wav_bytes, sr = await mm.generate(text, req.language, req.voice)
     return GenerateJsonResponse(
         audio_base64=base64.b64encode(wav_bytes).decode(),
         sample_rate=sr,

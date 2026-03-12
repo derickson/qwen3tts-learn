@@ -8,7 +8,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
-from .config import DEFAULT_VOICE, VOICES
+from .config import DEFAULT_VOICE, SUPPORTED_LANGUAGES, VOICES
 from .model_manager import ModelManager
 from .routes import router as api_router
 
@@ -52,4 +52,5 @@ async def landing_page(request: Request):
     html = (TEMPLATES_DIR / "index.html").read_text()
     html = html.replace("__VOICE_CONFIG__", json.dumps(voice_config))
     html = html.replace("__DEFAULT_VOICE__", json.dumps(DEFAULT_VOICE))
+    html = html.replace("__LANGUAGES__", json.dumps(list(SUPPORTED_LANGUAGES.keys())))
     return HTMLResponse(html)

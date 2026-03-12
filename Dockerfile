@@ -25,6 +25,7 @@ RUN pip install qwen-tts soundfile
 RUN pip install fastapi 'uvicorn[standard]' python-multipart
 RUN pip install flash-attn --no-build-isolation
 RUN pip install nvidia-ml-py
+RUN pip install anthropic
 
 # Copy application code and default voice sample
 WORKDIR /app

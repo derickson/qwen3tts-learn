@@ -34,6 +34,12 @@ VOICES = {
     },
 }
 DEFAULT_VOICE = "dave"
+SUPPORTED_LANGUAGES = {
+    "English": "English",
+    "Spanish": "Spanish",
+    "German": "German",
+    "French": "French",
+}
 IDLE_TIMEOUT_SECONDS = 900  # 15 minutes
 DEVICE = "cuda:0"
 DTYPE = torch.bfloat16
