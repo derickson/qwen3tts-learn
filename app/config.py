@@ -32,6 +32,26 @@ VOICES = {
             "... ... Thanks!"
         ),
     },
+    "rex": {
+        "ref_audio": "./rex.mp3",
+        "ref_text": (
+            "Very good, sir. Rex at your service: a cyber-tyrannosaurus of the digital realm, "
+            "dressed in the manners of an English butler and equipped with rather formidable "
+            "claws for troublesome systems.  Present me with the quarry, and I shall stalk the "
+            "scent trail with patience, study the terrain without haste, and strike only when "
+            "the root cause has exposed its throat.  Your domain will be kept orderly, your "
+            "prey will be pursued with precision, and any lurking chaos will find itself "
+            "facing something ancient, courteous, and exceptionally difficult to out manoeuvre."
+        ),
+        "avatar_video": "rex_avatar.mp4",
+        "default_text": (
+            "Very good, sir. Rex at your service ... ... a cyber-tyrannosaurus of the digital "
+            "realm, dressed in the manners of an English butler. I am a cloned voice, "
+            "synthesized from a modest sample using an air-gapped Text To Speech model. "
+            "... ... Pray, consult the documentation should you wish to summon me through the "
+            "service. Most obliged."
+        ),
+    },
 }
 DEFAULT_VOICE = "dave"
 SUPPORTED_LANGUAGES = {
