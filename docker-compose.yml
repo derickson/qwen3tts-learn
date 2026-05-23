@@ -10,6 +10,7 @@ services:
       - qwen3tts-learn_hf-cache:/root/.cache/huggingface
       - ./DaveSample.m4a:/app/DaveSample.m4a
       - ./claire.mp3:/app/claire.mp3
+      - ./rex.mp3:/app/rex.mp3
     deploy:
       resources:
         reservations:

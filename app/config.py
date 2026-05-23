@@ -44,13 +44,7 @@ VOICES = {
             "facing something ancient, courteous, and exceptionally difficult to out manoeuvre."
         ),
         "avatar_video": "rex_avatar.mp4",
-        "default_text": (
-            "Very good, sir. Rex at your service ... ... a cyber-tyrannosaurus of the digital "
-            "realm, dressed in the manners of an English butler. I am a cloned voice, "
-            "synthesized from a modest sample using an air-gapped Text To Speech model. "
-            "... ... Pray, consult the documentation should you wish to summon me through the "
-            "service. Most obliged."
-        ),
+        "default_text": "Very good, sir. Rex at your service.",
     },
 }
 DEFAULT_VOICE = "dave"
